@@ -1,0 +1,691 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CampusVibe - Event Registration Portal</title>
+
+    <style>
+        /* UNIVERSAL STYLING */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* MAIN WEBSITE STYLING */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f3ff;
+            color: #252744;
+        }
+
+        /* WEBSITE HEADER */
+        .website-header {
+            background: linear-gradient(
+                135deg,
+                #252747,
+                #493080
+            );
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .website-header h1 {
+            font-size: 36px;
+        }
+
+        .website-header p {
+            margin-top: 10px;
+            font-size: 17px;
+            color: #d8b4fe;
+        }
+
+        /* NAVIGATION BAR */
+        .navigation-bar {
+            background-color: #292f68;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .navigation-bar a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            font-size: 17px;
+        }
+
+        .navigation-bar a:hover {
+            color: #c084fc;
+        }
+
+        /* MAIN CONTENT CONTAINER */
+        .content-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 35px auto;
+            background-color: white;
+            padding: 30px;
+            border: 2px solid #a855f7;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px
+                        rgba(0, 0, 0, 0.1);
+        }
+
+        /* SECTION HEADINGS */
+        .section-heading {
+            text-align: center;
+            color: #493080;
+            margin-bottom: 20px;
+        }
+
+        /* INTRODUCTION TEXT */
+        .introduction-text {
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        /* EVENT COLLECTION */
+        .event-list {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        /* EVENT CARD */
+        .event-card {
+            background-color: #f3e8ff;
+            border: 1px solid #c084fc;
+            padding: 18px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 180px;
+            flex: 1;
+        }
+
+        .event-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .event-card p {
+            margin-bottom: 10px;
+        }
+
+        /* EVENT SELECTION BUTTON */
+        .event-selection-button {
+            margin-top: 10px;
+            padding: 9px 15px;
+            background-color: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .event-selection-button:hover {
+            background-color: #5b21b6;
+        }
+
+        /* REGISTRATION FORM INPUTS */
+        .registration-form input,
+        .registration-form select,
+        .registration-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #b9a7bd;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+
+        /* REGISTRATION BUTTON */
+        .registration-button {
+            width: 100%;
+            padding: 13px;
+            background-color: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .registration-button:hover {
+            background-color: #5b21b6;
+        }
+
+        /* EVENT COUNTDOWN TIMER */
+        #registrationCountdownTimer {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 17px;
+            font-weight: bold;
+            color: #7c3aed;
+        }
+
+        /* REGISTRATION STATUS MESSAGE */
+        #registrationStatusMessage {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 17px;
+            font-weight: bold;
+            white-space: pre-line;
+        }
+
+        /* WEBSITE FOOTER */
+        .website-footer {
+            background-color: #252747;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* TABLET RESPONSIVENESS */
+        @media screen and (max-width: 900px) {
+
+            .content-container {
+                width: 92%;
+            }
+
+            .website-header h1 {
+                font-size: 30px;
+            }
+        }
+
+        /* MOBILE RESPONSIVENESS */
+        @media screen and (max-width: 500px) {
+
+            .website-header h1 {
+                font-size: 25px;
+            }
+
+            .navigation-bar a {
+                display: inline-block;
+                margin: 7px;
+                font-size: 14px;
+            }
+
+            .content-container {
+                padding: 20px;
+            }
+
+            .event-list {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- WEBSITE HEADER -->
+    <header class="website-header" id="home">
+
+        <h1>⚡ CampusVibe</h1>
+
+        <p>Where Campus Life Comes Alive!</p>
+
+    </header>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navigation-bar">
+
+        <a href="#home">Home</a>
+
+        <a href="#events">Events</a>
+
+        <a href="#registration">Register Now</a>
+
+    </nav>
+
+    <!-- INTRODUCTION SECTION -->
+    <section class="content-container">
+
+        <h2 class="section-heading">
+            Welcome to CampusVibe!
+        </h2>
+
+        <p class="introduction-text">
+            Discover exciting college events,
+            showcase your talents, participate
+            in competitions, and create
+            unforgettable campus memories.
+        </p>
+
+    </section>
+
+    <!-- EVENT COLLECTION SECTION -->
+    <section class="content-container" id="events">
+
+        <h2 class="section-heading">
+            Explore College Events
+        </h2>
+
+        <div class="event-list">
+
+            <!-- TECHNICAL EVENT -->
+            <div class="event-card">
+
+                <h3>💻 Technical Events</h3>
+
+                <p>Hackathons and Coding</p>
+
+                <button
+                    class="event-selection-button"
+                    onclick="selectCollegeEvent('Technical Events')">
+                    Select
+                </button>
+
+            </div>
+
+            <!-- CULTURAL EVENT -->
+            <div class="event-card">
+
+                <h3>🎭 Cultural Events</h3>
+
+                <p>Dance, Music and Drama</p>
+
+                <button
+                    class="event-selection-button"
+                    onclick="selectCollegeEvent('Cultural Events')">
+                    Select
+                </button>
+
+            </div>
+
+            <!-- SPORTS EVENT -->
+            <div class="event-card">
+
+                <h3>🏆 Sports Events</h3>
+
+                <p>Sports and Tournaments</p>
+
+                <button
+                    class="event-selection-button"
+                    onclick="selectCollegeEvent('Sports Events')">
+                    Select
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- EVENT REGISTRATION SECTION -->
+    <section class="content-container"
+             id="registration">
+
+        <h2 class="section-heading">
+            College Event Registration
+        </h2>
+
+        <!-- COUNTDOWN TIMER -->
+        <p id="registrationCountdownTimer"></p>
+
+        <!-- REGISTRATION FORM -->
+        <form class="registration-form"
+              id="eventRegistrationForm">
+
+            <!-- STUDENT NAME -->
+            <input
+                type="text"
+                id="studentFullName"
+                placeholder="Enter Your Full Name"
+                required
+            >
+
+            <!-- STUDENT MOBILE NUMBER -->
+            <input
+                type="tel"
+                id="studentMobileNumber"
+                placeholder="Enter 10-Digit Mobile Number"
+                maxlength="10"
+                required
+            >
+
+            <!-- STUDENT REGISTER NUMBER -->
+            <input
+                type="text"
+                id="studentRegisterNumber"
+                placeholder="Enter Register Number"
+                required
+            >
+
+            <!-- EVENT SELECTION -->
+            <select id="selectedCollegeEvent" required>
+
+                <option value="">
+                    Select Your Event
+                </option>
+
+                <option value="Technical Events">
+                    Technical Events
+                </option>
+
+                <option value="Cultural Events">
+                    Cultural Events
+                </option>
+
+                <option value="Sports Events">
+                    Sports Events
+                </option>
+
+            </select>
+
+            <!-- ADDITIONAL MESSAGE -->
+            <textarea
+                id="additionalStudentMessage"
+                placeholder="Enter Additional Message"
+                rows="3"></textarea>
+
+            <!-- SUBMIT BUTTON -->
+            <button
+                type="submit"
+                class="registration-button">
+                Register for Event
+            </button>
+
+        </form>
+
+        <!-- REGISTRATION STATUS -->
+        <p id="registrationStatusMessage"
+           role="status"></p>
+
+    </section>
+
+    <!-- WEBSITE FOOTER -->
+    <footer class="website-footer">
+
+        <p>
+            ⚡ CampusVibe - Where Campus Life Comes Alive!
+        </p>
+
+        <p>
+            © 2026 CampusVibe College Event Portal
+        </p>
+
+    </footer>
+
+    <!-- JAVASCRIPT PROGRAM -->
+    <script>
+
+        /* DOCUMENT OBJECT MODEL ELEMENT SELECTION */
+
+        const eventRegistrationForm =
+            document.getElementById(
+                "eventRegistrationForm"
+            );
+
+        const studentFullName =
+            document.getElementById(
+                "studentFullName"
+            );
+
+        const studentMobileNumber =
+            document.getElementById(
+                "studentMobileNumber"
+            );
+
+        const studentRegisterNumber =
+            document.getElementById(
+                "studentRegisterNumber"
+            );
+
+        const selectedCollegeEvent =
+            document.getElementById(
+                "selectedCollegeEvent"
+            );
+
+        const additionalStudentMessage =
+            document.getElementById(
+                "additionalStudentMessage"
+            );
+
+        const registrationStatusMessage =
+            document.getElementById(
+                "registrationStatusMessage"
+            );
+
+        const registrationCountdownTimer =
+            document.querySelector(
+                "#registrationCountdownTimer"
+            );
+
+        /* TIMEOUT VARIABLE */
+        let registrationMessageTimeout;
+
+        /* REGISTRATION COUNTDOWN TIMER */
+        let remainingTimeInSeconds = 60;
+
+        registrationCountdownTimer.textContent =
+            "⏳ Demo Registration Timer: " +
+            remainingTimeInSeconds + " seconds";
+
+        /* SET INTERVAL FUNCTION */
+        const registrationCountdownInterval =
+            setInterval(function() {
+
+                remainingTimeInSeconds--;
+
+                if (remainingTimeInSeconds > 0) {
+
+                    registrationCountdownTimer.textContent =
+                        "⏳ Demo Registration Timer: " +
+                        remainingTimeInSeconds +
+                        " seconds";
+
+                } else {
+
+                    registrationCountdownTimer.textContent =
+                        "Demo countdown completed.";
+
+                    clearInterval(
+                        registrationCountdownInterval
+                    );
+                }
+
+            }, 1000);
+
+        /* EVENT SELECTION FUNCTION */
+        function selectCollegeEvent(eventName) {
+
+            selectedCollegeEvent.value = eventName;
+
+            registrationStatusMessage.textContent =
+                eventName + " selected successfully!";
+
+            registrationStatusMessage.style.color =
+                "green";
+
+            /* CLEAR PREVIOUS TIMEOUT */
+            clearTimeout(registrationMessageTimeout);
+
+            /* AUTOMATIC MESSAGE REMOVAL */
+            registrationMessageTimeout =
+                setTimeout(function() {
+
+                    registrationStatusMessage.textContent =
+                        "";
+
+                }, 4000);
+
+            /* SCROLL TO REGISTRATION FORM */
+            document.getElementById(
+                "registration"
+            ).scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+
+        /* FORM SUBMISSION EVENT HANDLING */
+        eventRegistrationForm.addEventListener(
+            "submit",
+            function(submissionEvent) {
+
+                submissionEvent.preventDefault();
+
+                /* GET STUDENT DETAILS */
+                const enteredStudentName =
+                    studentFullName.value.trim();
+
+                const enteredMobileNumber =
+                    studentMobileNumber.value.trim();
+
+                const enteredRegisterNumber =
+                    studentRegisterNumber.value.trim();
+
+                const chosenCollegeEvent =
+                    selectedCollegeEvent.value;
+
+                const enteredAdditionalMessage =
+                    additionalStudentMessage.value.trim();
+
+                /* STUDENT NAME VALIDATION */
+                if (!/^[A-Za-z ]+$/.test(
+                    enteredStudentName
+                )) {
+
+                    registrationStatusMessage.textContent =
+                        "Please enter a valid student name.";
+
+                    registrationStatusMessage.style.color =
+                        "red";
+
+                    return;
+                }
+
+                /* MOBILE NUMBER VALIDATION */
+                if (!/^[0-9]{10}$/.test(
+                    enteredMobileNumber
+                )) {
+
+                    registrationStatusMessage.textContent =
+                        "Please enter a valid 10-digit mobile number.";
+
+                    registrationStatusMessage.style.color =
+                        "red";
+
+                    return;
+                }
+
+                /* REGISTER NUMBER VALIDATION */
+                if (enteredRegisterNumber === "") {
+
+                    registrationStatusMessage.textContent =
+                        "Please enter your register number.";
+
+                    registrationStatusMessage.style.color =
+                        "red";
+
+                    return;
+                }
+
+                /* EVENT SELECTION VALIDATION */
+                if (chosenCollegeEvent === "") {
+
+                    registrationStatusMessage.textContent =
+                        "Please select a college event.";
+
+                    registrationStatusMessage.style.color =
+                        "red";
+
+                    return;
+                }
+
+                /* DYNAMIC CONTENT UPDATE */
+                let confirmationMessage =
+                    "🎉 Thank You, " +
+                    enteredStudentName +
+                    "!\nYour demo registration for " +
+                    chosenCollegeEvent +
+                    " has been completed locally.";
+
+                /* DISPLAY ADDITIONAL MESSAGE */
+                if (enteredAdditionalMessage !== "") {
+
+                    confirmationMessage +=
+                        "\nYour Message: " +
+                        enteredAdditionalMessage;
+                }
+
+                confirmationMessage +=
+                    "\nNo details have been sent to a server.";
+
+                registrationStatusMessage.textContent =
+                    confirmationMessage;
+
+                registrationStatusMessage.style.color =
+                    "green";
+
+                /* STOP COUNTDOWN TIMER */
+                clearInterval(
+                    registrationCountdownInterval
+                );
+
+                registrationCountdownTimer.textContent =
+                    "🎉 Demo Form Submitted!";
+
+                /* CLEAR PREVIOUS TIMEOUT */
+                clearTimeout(
+                    registrationMessageTimeout
+                );
+
+                /* AUTOMATIC CONFIRMATION REMOVAL */
+                registrationMessageTimeout =
+                    setTimeout(function() {
+
+                        registrationStatusMessage.textContent =
+                            "";
+
+                    }, 6000);
+
+                /* RESET REGISTRATION FORM */
+                eventRegistrationForm.reset();
+
+            }
+        );
+
+        /* STUDENT NAME INPUT EVENT */
+        studentFullName.addEventListener(
+            "input",
+            function() {
+
+                clearTimeout(
+                    registrationMessageTimeout
+                );
+
+                registrationStatusMessage.textContent =
+                    "";
+            }
+        );
+
+        /* MOBILE NUMBER INPUT EVENT */
+        studentMobileNumber.addEventListener(
+            "input",
+            function() {
+
+                clearTimeout(
+                    registrationMessageTimeout
+                );
+
+                registrationStatusMessage.textContent =
+                    "";
+            }
+        );
+
+    </script>
+
+</body>
+</html>
